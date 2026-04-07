@@ -2,6 +2,7 @@
 
 Fluent, chainable validation library for JavaScript & TypeScript.
 Zero dependencies. Under 3kb gzipped. Works everywhere.
+134 tests passing.
 
 ```bash
 npm install validate-chain
