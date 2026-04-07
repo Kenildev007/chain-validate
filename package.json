@@ -43,7 +43,7 @@
   "bugs": {
     "url": "https://github.com/Kenildev007/validate-chain/issues"
   },
-  "homepage": "https://github.com/Kenildev007/validate-chain#readme",
+  "homepage": "https://kenildev007.github.io/validate-chain/",
   "engines": {
     "node": ">=14.0.0"
   },
