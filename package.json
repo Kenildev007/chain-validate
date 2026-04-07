@@ -1,0 +1,56 @@
+{
+  "name": "validate-chain",
+  "version": "1.0.0",
+  "description": "Fluent, chainable validation library — structured errors, built-in sanitization, under 3kb",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "bench": "tsx benchmarks/bench.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "validation",
+    "validator",
+    "chain",
+    "fluent",
+    "schema",
+    "sanitize",
+    "form",
+    "typescript",
+    "lightweight"
+  ],
+  "author": "Kenil",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kenildev007/validate-chain"
+  },
+  "bugs": {
+    "url": "https://github.com/Kenildev007/validate-chain/issues"
+  },
+  "homepage": "https://github.com/Kenildev007/validate-chain#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0",
+    "tsx": "^4.10.0"
+  }
+}

@@ -1,0 +1,12 @@
+src/
+tests/
+benchmarks/
+docs/
+coverage/
+*.config.ts
+tsconfig.json
+DESIGN.md
+.github/
+.vscode/
+.idea/
+.claude/

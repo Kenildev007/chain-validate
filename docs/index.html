@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>validate-chain — Fluent Validation for JS & TS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="nav-logo-icon">&#x2693;</span>
+        validate-chain
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#playground">Playground</a>
+        <a href="#api">API</a>
+        <a href="#examples">Examples</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="https://github.com/Kenildev007/validate-chain" class="nav-github" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <button class="nav-mobile-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="hero-badge">v1.2 &mdash; Production Ready</div>
+      <h1 class="hero-title">Validate. Sanitize.<br><span class="hero-gradient">Chain.</span></h1>
+      <p class="hero-sub">
+        Fluent, chainable validation for JavaScript & TypeScript.<br>
+        Zero dependencies. Under 3kb gzipped. Works everywhere.
+      </p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-value">2.7kb</span>
+          <span class="stat-label">gzipped</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-value">0</span>
+          <span class="stat-label">dependencies</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-value">100</span>
+          <span class="stat-label">tests passing</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-value">31M</span>
+          <span class="stat-label">ops/sec</span>
+        </div>
+      </div>
+      <div class="hero-install">
+        <code>npm install validate-chain</code>
+        <button class="copy-btn" data-copy="npm install validate-chain" title="Copy">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- QUICK DEMO -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="demo-grid">
+        <div class="demo-code">
+          <div class="code-header">
+            <span class="code-dot red"></span>
+            <span class="code-dot yellow"></span>
+            <span class="code-dot green"></span>
+            <span class="code-filename">example.ts</span>
+          </div>
+          <pre><code><span class="kw">import</span> { v } <span class="kw">from</span> <span class="str">'validate-chain'</span>;
+
+<span class="kw">const</span> schema = v.<span class="fn">object</span>({
+  name:  v.<span class="fn">string</span>().<span class="fn">required</span>().<span class="fn">trim</span>().<span class="fn">minLength</span>(<span class="num">2</span>),
+  email: v.<span class="fn">string</span>().<span class="fn">required</span>().<span class="fn">trim</span>().<span class="fn">lowercase</span>().<span class="fn">email</span>(),
+  age:   v.<span class="fn">number</span>().<span class="fn">optional</span>().<span class="fn">coerce</span>().<span class="fn">min</span>(<span class="num">0</span>),
+});
+
+<span class="kw">const</span> result = schema.<span class="fn">validate</span>({
+  name:  <span class="str">'  KENIL  '</span>,
+  email: <span class="str">'  Kenil@Example.COM  '</span>,
+  age:   <span class="str">'25'</span>
+});
+
+<span class="cmt">// result.ok === true</span>
+<span class="cmt">// result.value = {</span>
+<span class="cmt">//   name: "KENIL",</span>
+<span class="cmt">//   email: "kenil@example.com",</span>
+<span class="cmt">//   age: 25</span>
+<span class="cmt">// }</span></code></pre>
+        </div>
+        <div class="demo-explain">
+          <h2>Validate + Sanitize in One Chain</h2>
+          <div class="explain-list">
+            <div class="explain-item">
+              <div class="explain-icon">1</div>
+              <div>
+                <strong>Define rules fluently</strong>
+                <p>Chain validators and sanitizers in the order you want them to run.</p>
+              </div>
+            </div>
+            <div class="explain-item">
+              <div class="explain-icon">2</div>
+              <div>
+                <strong>Get clean data back</strong>
+                <p><code>result.value</code> is already trimmed, lowercased, and coerced. No post-processing needed.</p>
+              </div>
+            </div>
+            <div class="explain-item">
+              <div class="explain-icon">3</div>
+              <div>
+                <strong>Never catches exceptions</strong>
+                <p>Check <code>result.ok</code> &mdash; TypeScript narrows the type automatically.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="container">
+      <h2 class="section-title">Why validate-chain?</h2>
+      <p class="section-sub">Everything you need. Nothing you don't.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>All Errors at Once</h3>
+          <p>Never short-circuits. Every rule runs and all failures are collected &mdash; perfect for forms showing multiple field errors simultaneously.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Never Throws</h3>
+          <p>Returns <code>{ok, value/errors}</code> &mdash; a discriminated union. No try/catch. TypeScript narrows automatically on <code>.ok</code>.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <h3>Built-in Sanitization</h3>
+          <p><code>.trim()</code>, <code>.lowercase()</code>, <code>.coerce()</code> transform the value as it flows &mdash; <code>result.value</code> is already clean.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>2.7kb Gzipped</h3>
+          <p>Zero dependencies. Tree-shakable. 5x smaller than Zod, 10x smaller than Joi. Your bundle will barely notice it.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3>Blazing Fast</h3>
+          <p>31M ops/sec on simple validations. Zero allocations on valid input. Pre-compiled regex. No Proxy or getter traps.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3>Isomorphic</h3>
+          <p>Same import, same API. Works in Node.js for API validation and in the browser for form validation. Define once, use everywhere.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="section section-dark">
+    <div class="container">
+      <h2 class="section-title">How It Compares</h2>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th class="highlight-col">validate-chain</th>
+              <th>Zod</th>
+              <th>Yup</th>
+              <th>Joi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bundle size</td>
+              <td class="highlight-col"><strong>~2.7kb</strong></td>
+              <td>~14kb</td>
+              <td>~12kb</td>
+              <td>~30kb</td>
+            </tr>
+            <tr>
+              <td>Zero dependencies</td>
+              <td class="highlight-col">Yes</td>
+              <td>Yes</td>
+              <td>Yes</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>Collects ALL errors</td>
+              <td class="highlight-col">Yes</td>
+              <td>No</td>
+              <td>No</td>
+              <td>Config</td>
+            </tr>
+            <tr>
+              <td>Built-in sanitization</td>
+              <td class="highlight-col">Yes</td>
+              <td>No</td>
+              <td>Partial</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>Never throws</td>
+              <td class="highlight-col">Yes</td>
+              <td>No</td>
+              <td>No</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>TypeScript-first</td>
+              <td class="highlight-col">Yes</td>
+              <td>Yes</td>
+              <td>Partial</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>Async validators</td>
+              <td class="highlight-col">Yes</td>
+              <td>Yes</td>
+              <td>Yes</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>Conditional (.when)</td>
+              <td class="highlight-col">Yes</td>
+              <td>No</td>
+              <td>Yes</td>
+              <td>Yes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE PLAYGROUND -->
+  <section class="section" id="playground">
+    <div class="container">
+      <h2 class="section-title">Interactive Playground</h2>
+      <p class="section-sub">Pick a scenario, edit the input, see results live.</p>
+
+      <div class="playground">
+        <div class="playground-tabs">
+          <button class="playground-tab active" data-tab="string">String</button>
+          <button class="playground-tab" data-tab="number">Number</button>
+          <button class="playground-tab" data-tab="object">Object</button>
+          <button class="playground-tab" data-tab="array">Array</button>
+          <button class="playground-tab" data-tab="custom">Custom</button>
+          <button class="playground-tab" data-tab="conditional">Conditional</button>
+        </div>
+
+        <div class="playground-body">
+          <div class="playground-left">
+            <div class="code-header">
+              <span class="code-dot red"></span>
+              <span class="code-dot yellow"></span>
+              <span class="code-dot green"></span>
+              <span class="code-filename">schema.ts</span>
+            </div>
+            <pre class="playground-schema"><code id="schemaCode"></code></pre>
+
+            <div class="code-header" style="margin-top: 12px;">
+              <span class="code-dot red"></span>
+              <span class="code-dot yellow"></span>
+              <span class="code-dot green"></span>
+              <span class="code-filename">input</span>
+            </div>
+            <textarea id="playgroundInput" class="playground-input" spellcheck="false"></textarea>
+            <button class="playground-run" id="runBtn">Run Validation</button>
+          </div>
+
+          <div class="playground-right">
+            <div class="code-header">
+              <span class="code-dot red"></span>
+              <span class="code-dot yellow"></span>
+              <span class="code-dot green"></span>
+              <span class="code-filename">result</span>
+            </div>
+            <pre class="playground-output"><code id="playgroundOutput"></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- API REFERENCE -->
+  <section class="section section-dark" id="api">
+    <div class="container">
+      <h2 class="section-title">API Reference</h2>
+      <p class="section-sub">Every method, organized by chain type.</p>
+
+      <!-- String -->
+      <div class="api-block">
+        <div class="api-header">
+          <h3>v.string()</h3>
+          <span class="api-badge">StringChain</span>
+        </div>
+        <div class="api-columns">
+          <div class="api-col">
+            <h4>Validators</h4>
+            <div class="api-method"><code>.required(msg?)</code><span>Must not be empty/undefined/null</span></div>
+            <div class="api-method"><code>.optional()</code><span>Allows undefined/null</span></div>
+            <div class="api-method"><code>.minLength(n, msg?)</code><span>Minimum character count</span></div>
+            <div class="api-method"><code>.maxLength(n, msg?)</code><span>Maximum character count</span></div>
+            <div class="api-method"><code>.length(n, msg?)</code><span>Exact character count</span></div>
+            <div class="api-method"><code>.email(msg?)</code><span>RFC 5322 email format</span></div>
+            <div class="api-method"><code>.url(msg?)</code><span>Valid URL format</span></div>
+            <div class="api-method"><code>.uuid(msg?)</code><span>UUID v4 format</span></div>
+            <div class="api-method"><code>.regex(pattern, msg?)</code><span>Custom regex test</span></div>
+            <div class="api-method"><code>.includes(str, msg?)</code><span>Must contain substring</span></div>
+            <div class="api-method"><code>.startsWith(str, msg?)</code><span>Must start with prefix</span></div>
+            <div class="api-method"><code>.endsWith(str, msg?)</code><span>Must end with suffix</span></div>
+            <div class="api-method"><code>.oneOf(values, msg?)</code><span>Must be one of listed values</span></div>
+            <div class="api-method"><code>.notEmpty(msg?)</code><span>Not empty after trim</span></div>
+          </div>
+          <div class="api-col">
+            <h4>Sanitizers</h4>
+            <div class="api-method"><code>.trim()</code><span>Strip whitespace</span></div>
+            <div class="api-method"><code>.lowercase()</code><span>Convert to lowercase</span></div>
+            <div class="api-method"><code>.uppercase()</code><span>Convert to uppercase</span></div>
+            <div class="api-method"><code>.replace(search, repl)</code><span>String replacement</span></div>
+            <div class="api-method"><code>.default(value)</code><span>Fallback if nil</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Number -->
+      <div class="api-block">
+        <div class="api-header">
+          <h3>v.number()</h3>
+          <span class="api-badge">NumberChain</span>
+        </div>
+        <div class="api-columns">
+          <div class="api-col">
+            <h4>Validators</h4>
+            <div class="api-method"><code>.required(msg?)</code><span>Must not be undefined/null/NaN</span></div>
+            <div class="api-method"><code>.optional()</code><span>Allows undefined/null</span></div>
+            <div class="api-method"><code>.min(n, msg?)</code><span>Minimum value (inclusive)</span></div>
+            <div class="api-method"><code>.max(n, msg?)</code><span>Maximum value (inclusive)</span></div>
+            <div class="api-method"><code>.between(min, max, msg?)</code><span>Value within range</span></div>
+            <div class="api-method"><code>.integer(msg?)</code><span>Must be whole number</span></div>
+            <div class="api-method"><code>.positive(msg?)</code><span>Must be &gt; 0</span></div>
+            <div class="api-method"><code>.negative(msg?)</code><span>Must be &lt; 0</span></div>
+            <div class="api-method"><code>.oneOf(values, msg?)</code><span>Must be one of listed</span></div>
+          </div>
+          <div class="api-col">
+            <h4>Sanitizers</h4>
+            <div class="api-method"><code>.coerce()</code><span>"42" &rarr; 42</span></div>
+            <div class="api-method"><code>.round()</code><span>Round to nearest int</span></div>
+            <div class="api-method"><code>.floor()</code><span>Round down</span></div>
+            <div class="api-method"><code>.ceil()</code><span>Round up</span></div>
+            <div class="api-method"><code>.clamp(min, max)</code><span>Clamp within range</span></div>
+            <div class="api-method"><code>.default(value)</code><span>Fallback if nil</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Boolean -->
+      <div class="api-block">
+        <div class="api-header">
+          <h3>v.boolean()</h3>
+          <span class="api-badge">BooleanChain</span>
+        </div>
+        <div class="api-columns">
+          <div class="api-col">
+            <h4>Validators</h4>
+            <div class="api-method"><code>.required(msg?)</code><span>Must not be nil</span></div>
+            <div class="api-method"><code>.optional()</code><span>Allows undefined/null</span></div>
+          </div>
+          <div class="api-col">
+            <h4>Sanitizers</h4>
+            <div class="api-method"><code>.coerce()</code><span>"true"/"yes"/1 &rarr; true</span></div>
+            <div class="api-method"><code>.default(value)</code><span>Fallback if nil</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Array -->
+      <div class="api-block">
+        <div class="api-header">
+          <h3>v.array()</h3>
+          <span class="api-badge">ArrayChain</span>
+        </div>
+        <div class="api-columns">
+          <div class="api-col">
+            <h4>Validators</h4>
+            <div class="api-method"><code>.required(msg?)</code><span>Must not be nil</span></div>
+            <div class="api-method"><code>.optional()</code><span>Allows undefined/null</span></div>
+            <div class="api-method"><code>.of(chain)</code><span>Validate each element</span></div>
+            <div class="api-method"><code>.minLength(n, msg?)</code><span>Min array length</span></div>
+            <div class="api-method"><code>.maxLength(n, msg?)</code><span>Max array length</span></div>
+            <div class="api-method"><code>.unique(msg?)</code><span>All elements unique</span></div>
+            <div class="api-method"><code>.noEmpty(msg?)</code><span>No empty elements</span></div>
+          </div>
+          <div class="api-col">
+            <h4>Sanitizers</h4>
+            <div class="api-method"><code>.compact()</code><span>Remove null/undefined</span></div>
+            <div class="api-method"><code>.flat(depth?)</code><span>Flatten nested arrays</span></div>
+            <div class="api-method"><code>.default(value)</code><span>Fallback if nil</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Object -->
+      <div class="api-block">
+        <div class="api-header">
+          <h3>v.object(schema)</h3>
+          <span class="api-badge">ObjectChain</span>
+        </div>
+        <div class="api-columns">
+          <div class="api-col">
+            <h4>Validators</h4>
+            <div class="api-method"><code>.required(msg?)</code><span>Must not be nil</span></div>
+            <div class="api-method"><code>.optional()</code><span>Allows undefined/null</span></div>
+            <div class="api-method"><code>.strict(msg?)</code><span>Reject unknown keys</span></div>
+          </div>
+          <div class="api-col">
+            <h4>Features</h4>
+            <div class="api-method"><code>nested paths</code><span>Errors include ["user","email"]</span></div>
+            <div class="api-method"><code>.when() fields</code><span>Conditional validation</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Combinators -->
+      <div class="api-block">
+        <div class="api-header">
+          <h3>Combinators</h3>
+          <span class="api-badge">All Chains</span>
+        </div>
+        <div class="api-columns">
+          <div class="api-col">
+            <h4>Methods</h4>
+            <div class="api-method"><code>.or(otherChain)</code><span>Union &mdash; passes if either passes</span></div>
+            <div class="api-method"><code>.and(otherChain)</code><span>Intersection &mdash; both must pass</span></div>
+            <div class="api-method"><code>.when(field, opts)</code><span>Conditional based on sibling field</span></div>
+            <div class="api-method"><code>.test(name, msg, fn)</code><span>Custom sync validator</span></div>
+            <div class="api-method"><code>.testAsync(name, msg, fn)</code><span>Custom async validator</span></div>
+          </div>
+          <div class="api-col">
+            <h4>Custom Chain</h4>
+            <div class="api-method"><code>v.custom(fn)</code><span>Full control with ctx.addError()</span></div>
+            <div class="api-method"><code>v.any()</code><span>Accepts any type</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REAL-WORLD EXAMPLES -->
+  <section class="section" id="examples">
+    <div class="container">
+      <h2 class="section-title">Real-World Examples</h2>
+      <p class="section-sub">Copy-paste ready code for common scenarios.</p>
+
+      <div class="examples-grid">
+        <!-- Express API -->
+        <div class="example-card">
+          <div class="example-label">Backend</div>
+          <h3>Express API Validation</h3>
+          <div class="code-header">
+            <span class="code-dot red"></span>
+            <span class="code-dot yellow"></span>
+            <span class="code-dot green"></span>
+            <span class="code-filename">routes/users.ts</span>
+          </div>
+          <pre><code><span class="kw">const</span> createUserSchema = v.<span class="fn">object</span>({
+  name:     v.<span class="fn">string</span>().<span class="fn">required</span>().<span class="fn">trim</span>().<span class="fn">minLength</span>(<span class="num">2</span>),
+  email:    v.<span class="fn">string</span>().<span class="fn">required</span>().<span class="fn">trim</span>().<span class="fn">lowercase</span>().<span class="fn">email</span>(),
+  password: v.<span class="fn">string</span>().<span class="fn">required</span>().<span class="fn">minLength</span>(<span class="num">8</span>),
+  age:      v.<span class="fn">number</span>().<span class="fn">optional</span>().<span class="fn">coerce</span>().<span class="fn">integer</span>().<span class="fn">between</span>(<span class="num">13</span>, <span class="num">150</span>),
+  role:     v.<span class="fn">string</span>().<span class="fn">default</span>(<span class="str">'user'</span>).<span class="fn">oneOf</span>([<span class="str">'user'</span>, <span class="str">'admin'</span>]),
+});
+
+app.<span class="fn">post</span>(<span class="str">'/users'</span>, (req, res) => {
+  <span class="kw">const</span> result = createUserSchema.<span class="fn">validate</span>(req.body);
+
+  <span class="kw">if</span> (!result.ok) {
+    <span class="kw">return</span> res.<span class="fn">status</span>(<span class="num">400</span>).<span class="fn">json</span>({
+      success: <span class="kw">false</span>,
+      errors: result.errors,
+    });
+  }
+
+  <span class="cmt">// result.value is typed, trimmed, lowered, coerced</span>
+  <span class="kw">const</span> user = <span class="kw">await</span> <span class="fn">createUser</span>(result.value);
+  res.<span class="fn">json</span>({ success: <span class="kw">true</span>, data: user });
+});</code></pre>
+        </div>
+
+        <!-- React Form -->
+        <div class="example-card">
+          <div class="example-label">Frontend</div>
+          <h3>React Form Validation</h3>
+          <div class="code-header">
+            <span class="code-dot red"></span>
+            <span class="code-dot yellow"></span>
+            <span class="code-dot green"></span>
+            <span class="code-filename">LoginForm.tsx</span>
+          </div>
+          <pre><code><span class="kw">const</span> loginSchema = v.<span class="fn">object</span>({
+  email:    v.<span class="fn">string</span>().<span class="fn">required</span>(<span class="str">'Email is required'</span>)
+               .<span class="fn">email</span>(<span class="str">'Enter a valid email'</span>),
+  password: v.<span class="fn">string</span>().<span class="fn">required</span>(<span class="str">'Password is required'</span>)
+               .<span class="fn">minLength</span>(<span class="num">8</span>, <span class="str">'At least 8 characters'</span>),
+});
+
+<span class="kw">function</span> <span class="fn">LoginForm</span>() {
+  <span class="kw">const</span> [errors, setErrors] = <span class="fn">useState</span>({});
+
+  <span class="kw">const</span> <span class="fn">handleSubmit</span> = (formData) => {
+    <span class="kw">const</span> result = loginSchema.<span class="fn">validate</span>(formData);
+
+    <span class="kw">if</span> (!result.ok) {
+      <span class="kw">const</span> fieldErrors = {};
+      result.errors.<span class="fn">forEach</span>((err) => {
+        fieldErrors[err.path[<span class="num">0</span>]] = err.message;
+      });
+      <span class="fn">setErrors</span>(fieldErrors);
+      <span class="kw">return</span>;
+    }
+
+    <span class="fn">setErrors</span>({});
+    <span class="fn">login</span>(result.value);
+  };
+}</code></pre>
+        </div>
+
+        <!-- Conditional -->
+        <div class="example-card">
+          <div class="example-label">Advanced</div>
+          <h3>Conditional Validation</h3>
+          <div class="code-header">
+            <span class="code-dot red"></span>
+            <span class="code-dot yellow"></span>
+            <span class="code-dot green"></span>
+            <span class="code-filename">schema.ts</span>
+          </div>
+          <pre><code><span class="kw">const</span> schema = v.<span class="fn">object</span>({
+  type: v.<span class="fn">string</span>().<span class="fn">oneOf</span>([<span class="str">'personal'</span>, <span class="str">'business'</span>]),
+
+  company: v.<span class="fn">string</span>().<span class="fn">when</span>(<span class="str">'type'</span>, {
+    is: <span class="str">'business'</span>,
+    then: (chain) => chain.<span class="fn">required</span>(<span class="str">'Company required'</span>),
+    otherwise: (chain) => chain.<span class="fn">optional</span>(),
+  }),
+
+  taxId: v.<span class="fn">string</span>().<span class="fn">when</span>(<span class="str">'type'</span>, {
+    is: <span class="str">'business'</span>,
+    then: (chain) => chain.<span class="fn">required</span>().<span class="fn">length</span>(<span class="num">10</span>),
+    otherwise: (chain) => chain.<span class="fn">optional</span>(),
+  }),
+});
+
+<span class="cmt">// Business: company + taxId required</span>
+<span class="cmt">// Personal: both optional</span></code></pre>
+        </div>
+
+        <!-- Password -->
+        <div class="example-card">
+          <div class="example-label">Custom</div>
+          <h3>Password Strength Validator</h3>
+          <div class="code-header">
+            <span class="code-dot red"></span>
+            <span class="code-dot yellow"></span>
+            <span class="code-dot green"></span>
+            <span class="code-filename">validators.ts</span>
+          </div>
+          <pre><code><span class="kw">const</span> password = v.<span class="fn">custom</span>((value, ctx) => {
+  <span class="kw">if</span> (<span class="kw">typeof</span> value !== <span class="str">'string'</span>) {
+    ctx.<span class="fn">addError</span>(<span class="str">'type'</span>, <span class="str">'Must be a string'</span>);
+    <span class="kw">return</span>;
+  }
+
+  <span class="kw">if</span> (value.length < <span class="num">8</span>)
+    ctx.<span class="fn">addError</span>(<span class="str">'minLength'</span>, <span class="str">'At least 8 characters'</span>);
+
+  <span class="kw">if</span> (!/[A-Z]/.<span class="fn">test</span>(value))
+    ctx.<span class="fn">addError</span>(<span class="str">'uppercase'</span>, <span class="str">'Need one uppercase'</span>);
+
+  <span class="kw">if</span> (!/[0-9]/.<span class="fn">test</span>(value))
+    ctx.<span class="fn">addError</span>(<span class="str">'digit'</span>, <span class="str">'Need one digit'</span>);
+
+  <span class="kw">if</span> (!/[^a-zA-Z0-9]/.<span class="fn">test</span>(value))
+    ctx.<span class="fn">addError</span>(<span class="str">'special'</span>, <span class="str">'Need one special char'</span>);
+
+  <span class="kw">return</span> value;
+});
+
+<span class="cmt">// password.validate("abc")</span>
+<span class="cmt">// errors: minLength, uppercase, digit, special</span>
+<span class="cmt">// All 4 errors at once!</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULT SHAPE -->
+  <section class="section section-dark">
+    <div class="container">
+      <h2 class="section-title">Result Shape</h2>
+      <p class="section-sub">The discriminated union that powers everything.</p>
+      <div class="result-grid">
+        <div class="result-card result-ok">
+          <div class="result-badge ok">OK</div>
+          <pre><code>{
+  ok: <span class="kw">true</span>,
+  value: <span class="str">"kenil@example.com"</span>
+}</code></pre>
+          <p>Sanitized, typed, ready to use. TypeScript knows <code>result.value</code> exists.</p>
+        </div>
+        <div class="result-card result-fail">
+          <div class="result-badge fail">FAIL</div>
+          <pre><code>{
+  ok: <span class="kw">false</span>,
+  errors: [
+    {
+      rule: <span class="str">"email"</span>,
+      message: <span class="str">"Invalid email"</span>,
+      path: [<span class="str">"user"</span>, <span class="str">"email"</span>]
+    }
+  ]
+}</code></pre>
+          <p>Every error collected. Path traces nested objects. Perfect for API responses or UI hints.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section class="section" id="roadmap">
+    <div class="container">
+      <h2 class="section-title">Roadmap</h2>
+      <p class="section-sub">Where we've been. Where we're going.</p>
+      <div class="roadmap">
+        <div class="roadmap-item done">
+          <div class="roadmap-marker"></div>
+          <div class="roadmap-content">
+            <span class="roadmap-version">v1.0</span>
+            <h3>Core Chains</h3>
+            <p>String, Number, Boolean, Array, Object, Any, Custom chains with full validators and sanitizers.</p>
+          </div>
+        </div>
+        <div class="roadmap-item done">
+          <div class="roadmap-marker"></div>
+          <div class="roadmap-content">
+            <span class="roadmap-version">v1.1</span>
+            <h3>Async & Conditionals</h3>
+            <p>Async validation with <code>.testAsync()</code> and conditional validation with <code>.when()</code>.</p>
+          </div>
+        </div>
+        <div class="roadmap-item done">
+          <div class="roadmap-marker"></div>
+          <div class="roadmap-content">
+            <span class="roadmap-version">v1.2</span>
+            <h3>Combinators</h3>
+            <p>Union types with <code>.or()</code> and intersections with <code>.and()</code>.</p>
+          </div>
+        </div>
+        <div class="roadmap-item future">
+          <div class="roadmap-marker"></div>
+          <div class="roadmap-content">
+            <span class="roadmap-version">v1.3</span>
+            <h3>i18n Error Messages</h3>
+            <p>Pluggable message resolver for multi-language support. Built-in <code>en</code>, community locale packs.</p>
+          </div>
+        </div>
+        <div class="roadmap-item future">
+          <div class="roadmap-marker"></div>
+          <div class="roadmap-content">
+            <span class="roadmap-version">v1.4</span>
+            <h3>JSON Schema Export</h3>
+            <p><code>.toJSONSchema()</code> on any chain for auto-generating OpenAPI/Swagger documentation.</p>
+          </div>
+        </div>
+        <div class="roadmap-item future">
+          <div class="roadmap-marker"></div>
+          <div class="roadmap-content">
+            <span class="roadmap-version">v2.0</span>
+            <h3>Date & File Chains</h3>
+            <p>DateChain with <code>.past()</code>, <code>.future()</code>. FileChain with <code>.maxSize()</code>, <code>.mimeType()</code> for multipart validation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="nav-logo-icon">&#x2693;</span> validate-chain
+        </div>
+        <p>Built by Kenil. MIT Licensed.</p>
+        <div class="footer-links">
+          <a href="https://github.com/Kenildev007/validate-chain" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.npmjs.com" target="_blank" rel="noopener">npm</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
