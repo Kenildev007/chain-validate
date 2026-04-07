@@ -1,5 +1,5 @@
 {
-  "name": "validate-chain",
+  "name": "chain-validate",
   "version": "1.0.0",
   "description": "Fluent, chainable validation library — structured errors, built-in sanitization, under 3kb",
   "main": "./dist/index.js",
@@ -38,12 +38,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kenildev007/validate-chain"
+    "url": "git+https://github.com/Kenildev007/chain-validate.git"
   },
   "bugs": {
-    "url": "https://github.com/Kenildev007/validate-chain/issues"
+    "url": "https://github.com/Kenildev007/chain-validate/issues"
   },
-  "homepage": "https://kenildev007.github.io/validate-chain/",
+  "homepage": "https://kenildev007.github.io/chain-validate/",
   "engines": {
     "node": ">=14.0.0"
   },

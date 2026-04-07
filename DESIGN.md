@@ -1,17 +1,17 @@
-# validate-chain
+# chain-validate
 
 **Fluent, chainable validation library for JavaScript & TypeScript.**
 Zero dependencies. Under 3kb gzipped. Works everywhere.
 
 ```bash
-npm install validate-chain
+npm install chain-validate
 ```
 
 ---
 
-## Why validate-chain?
+## Why chain-validate?
 
-| Feature | validate-chain | Zod | Yup | Joi |
+| Feature | chain-validate | Zod | Yup | Joi |
 |---|---|---|---|---|
 | Bundle size | ~2.5kb | ~14kb | ~12kb | ~30kb |
 | Zero dependencies | Yes | Yes | Yes | No |
@@ -39,7 +39,7 @@ npm install validate-chain
 ## Quick Start
 
 ```ts
-import { v } from 'validate-chain';
+import { v } from 'chain-validate';
 
 const emailSchema = v.string()
   .trim()
@@ -64,7 +64,7 @@ if (result.ok) {
 ### Entry Points
 
 ```ts
-import { v } from 'validate-chain';
+import { v } from 'chain-validate';
 
 v.string()    // StringChain
 v.number()    // NumberChain
@@ -331,7 +331,7 @@ const schema = v.object({
 ### Express API Validation
 
 ```ts
-import { v } from 'validate-chain';
+import { v } from 'chain-validate';
 
 const createUserSchema = v.object({
   name: v.string().required().trim().minLength(2).maxLength(100),
@@ -360,7 +360,7 @@ app.post('/users', (req, res) => {
 ### React Form Validation
 
 ```ts
-import { v } from 'validate-chain';
+import { v } from 'chain-validate';
 
 const loginSchema = v.object({
   email: v.string().required('Email is required').email('Enter a valid email'),
@@ -415,7 +415,7 @@ const updateProfileSchema = v.object({
 
 ## Performance
 
-validate-chain is designed for zero-overhead on the happy path:
+chain-validate is designed for zero-overhead on the happy path:
 
 - **No allocations on valid input** — the result object is reused from a pool
 - **No regex compilation at runtime** — built-in patterns are pre-compiled once
@@ -425,7 +425,7 @@ validate-chain is designed for zero-overhead on the happy path:
 
 ### Benchmarks (ops/sec, higher is better)
 
-| Scenario | validate-chain | Zod | Yup |
+| Scenario | chain-validate | Zod | Yup |
 |---|---|---|---|
 | Simple string (valid) | 8,200,000 | 2,100,000 | 980,000 |
 | Simple string (invalid) | 5,400,000 | 1,800,000 | 720,000 |
@@ -439,7 +439,7 @@ validate-chain is designed for zero-overhead on the happy path:
 ## Architecture
 
 ```
-validate-chain/
+chain-validate/
   src/
     index.ts            # Public API — exports `v` and types
     core/
@@ -484,7 +484,7 @@ validate-chain/
 
 ```json
 {
-  "name": "validate-chain",
+  "name": "chain-validate",
   "version": "1.0.0",
   "description": "Fluent, chainable validation library — structured errors, built-in sanitization, under 3kb",
   "main": "./dist/index.cjs",
@@ -509,7 +509,7 @@ validate-chain/
 
 ---
 
-## What Makes validate-chain Unique
+## What Makes chain-validate Unique
 
 1. **Collect-all-errors by default** — no short-circuiting, show every problem at once
 2. **Never throws** — discriminated `{ ok, value/errors }` result, always

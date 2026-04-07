@@ -12,7 +12,7 @@ function bench(name: string, fn: () => void, iterations = 1_000_000) {
   console.log(`${name}: ${opsPerSec.toLocaleString()} ops/sec (${elapsed.toFixed(1)}ms)`);
 }
 
-console.log('validate-chain benchmarks\n');
+console.log('chain-validate benchmarks\n');
 console.log('='.repeat(60));
 
 // --- Simple string (valid) ---

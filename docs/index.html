@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>validate-chain — Fluent Validation for JS & TS</title>
+  <title>chain-validate — Fluent Validation for JS & TS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
     <div class="nav-inner">
       <a href="#" class="nav-logo">
         <span class="nav-logo-icon">&#x2693;</span>
-        validate-chain
+        chain-validate
       </a>
       <div class="nav-links">
         <a href="#features">Features</a>
@@ -24,7 +24,7 @@
         <a href="#api">API</a>
         <a href="#examples">Examples</a>
         <a href="#roadmap">Roadmap</a>
-        <a href="https://github.com/Kenildev007/validate-chain" class="nav-github" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/Kenildev007/chain-validate" class="nav-github" target="_blank" rel="noopener">GitHub</a>
       </div>
       <button class="nav-mobile-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -64,8 +64,8 @@
         </div>
       </div>
       <div class="hero-install">
-        <code>npm install validate-chain</code>
-        <button class="copy-btn" data-copy="npm install validate-chain" title="Copy">
+        <code>npm install chain-validate</code>
+        <button class="copy-btn" data-copy="npm install chain-validate" title="Copy">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
         </button>
       </div>
@@ -83,7 +83,7 @@
             <span class="code-dot green"></span>
             <span class="code-filename">example.ts</span>
           </div>
-          <pre><code><span class="kw">import</span> { v } <span class="kw">from</span> <span class="str">'validate-chain'</span>;
+          <pre><code><span class="kw">import</span> { v } <span class="kw">from</span> <span class="str">'chain-validate'</span>;
 
 <span class="kw">const</span> schema = v.<span class="fn">object</span>({
   name:  v.<span class="fn">string</span>().<span class="fn">required</span>().<span class="fn">trim</span>().<span class="fn">minLength</span>(<span class="num">2</span>),
@@ -137,7 +137,7 @@
   <!-- FEATURES -->
   <section class="section" id="features">
     <div class="container">
-      <h2 class="section-title">Why validate-chain?</h2>
+      <h2 class="section-title">Why chain-validate?</h2>
       <p class="section-sub">Everything you need. Nothing you don't.</p>
       <div class="features-grid">
         <div class="feature-card">
@@ -195,7 +195,7 @@
           <thead>
             <tr>
               <th>Feature</th>
-              <th class="highlight-col">validate-chain</th>
+              <th class="highlight-col">chain-validate</th>
               <th>Zod</th>
               <th>Yup</th>
               <th>Joi</th>
@@ -721,11 +721,11 @@ app.<span class="fn">post</span>(<span class="str">'/users'</span>, (req, res) =
     <div class="container">
       <div class="footer-inner">
         <div class="footer-brand">
-          <span class="nav-logo-icon">&#x2693;</span> validate-chain
+          <span class="nav-logo-icon">&#x2693;</span> chain-validate
         </div>
         <p>Built by Kenil. MIT Licensed.</p>
         <div class="footer-links">
-          <a href="https://github.com/Kenildev007/validate-chain" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://github.com/Kenildev007/chain-validate" target="_blank" rel="noopener">GitHub</a>
           <a href="https://www.npmjs.com" target="_blank" rel="noopener">npm</a>
         </div>
       </div>

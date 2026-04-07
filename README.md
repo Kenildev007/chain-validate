@@ -1,17 +1,17 @@
-# validate-chain
+# chain-validate
 
 Fluent, chainable validation library for JavaScript & TypeScript.
 Zero dependencies. Under 3kb gzipped. Works everywhere.
 134 tests passing.
 
 ```bash
-npm install validate-chain
+npm install chain-validate
 ```
 
 ## Quick Start
 
 ```ts
-import { v } from 'validate-chain';
+import { v } from 'chain-validate';
 
 const emailSchema = v.string()
   .trim()
@@ -29,9 +29,9 @@ if (result.ok) {
 }
 ```
 
-## Why validate-chain?
+## Why chain-validate?
 
-| Feature | validate-chain | Zod | Yup | Joi |
+| Feature | chain-validate | Zod | Yup | Joi |
 |---|---|---|---|---|
 | Bundle size | ~2.5kb | ~14kb | ~12kb | ~30kb |
 | Zero dependencies | Yes | Yes | Yes | No |
@@ -54,7 +54,7 @@ type ValidationResult<T> =
 
 ### Collects All Errors
 
-Unlike Zod which stops at the first failure, validate-chain runs every rule:
+Unlike Zod which stops at the first failure, chain-validate runs every rule:
 
 ```ts
 const result = v.string().minLength(5).email().validate('ab');
